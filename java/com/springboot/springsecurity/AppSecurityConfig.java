@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -31,17 +32,20 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 		provider.setPasswordEncoder(new BCryptPasswordEncoder());
 		return provider;
 	}
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests()
+			.antMatchers("/app/admin").hasRole("ADMIN")
+			.antMatchers("/app/math").hasAnyRole("PCM","ADMIN")
+			.antMatchers("/app/biology").hasAnyRole("PCB","ADMIN")
+			.antMatchers("/app/physics").permitAll()
+			.antMatchers("/app/chemistry").permitAll()
+			.and().formLogin();
+		
+	}
 	
-//	@Bean
-//	@Override
-//	protected UserDetailsService userDetailsService() {
-//		
-//		List<UserDetails> users = new ArrayList<>();
-//		users.add(User.withDefaultPasswordEncoder().username("ambar").password("1234").roles("USER").build());
-//		users.add(User.withDefaultPasswordEncoder().username("admin").password("4321").roles("admin").build());
-//		
-//		return new InMemoryUserDetailsManager(users);	
-//	}
+	
 	
 	
 	

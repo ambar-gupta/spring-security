@@ -11,16 +11,18 @@ public class User {
 	private int id;
 	private String username;
 	private String password;
+	private String role;
+	private String email;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getUserName() {
+	public String getUsername() {
 		return username;
 	}
-	public void setUserName(String userName) {
+	public void setUsername(String userName) {
 		this.username = userName;
 	}
 	public String getPassword() {
@@ -29,11 +31,26 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public User(int id, String username, String password) {
+	
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public User(int id, String username, String password, String role, String email) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.role = role;
+		this.email = email;
 	}
 	public User() {
 		super();
