@@ -36,12 +36,14 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+			.antMatchers("/app/home").permitAll()
 			.antMatchers("/app/admin").hasRole("ADMIN")
 			.antMatchers("/app/math").hasAnyRole("PCM","ADMIN")
 			.antMatchers("/app/biology").hasAnyRole("PCB","ADMIN")
-			.antMatchers("/app/physics").permitAll()
-			.antMatchers("/app/chemistry").permitAll()
+			.antMatchers("/app/physics").hasAnyRole("PCB","ADMIN","PCM")
+			.antMatchers("/app/chemistry").hasAnyRole("PCB","ADMIN","PCM")
 			.and().formLogin();
+		
 		
 	}
 	
